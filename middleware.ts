@@ -47,7 +47,7 @@ export default async function middleware(req: NextRequest) {
       return NextResponse.redirect(
         // Automatic redirection to ssl page, but this might be a security issue
         new URL(
-          `http://app.${
+          `https://app.${
             process.env.NODE_ENV === "development"
               ? "localhost:3000"
               : process.env.NEXT_PUBLIC_ROOT_DOMAIN
