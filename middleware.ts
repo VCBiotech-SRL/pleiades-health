@@ -51,7 +51,7 @@ export default async function middleware(req: NextRequest) {
             process.env.NODE_ENV === "development"
               ? "localhost:3000"
               : process.env.NEXT_PUBLIC_ROOT_DOMAIN
-          }/${path}`,
+          }${path}`,
           req.url,
         ),
       );
