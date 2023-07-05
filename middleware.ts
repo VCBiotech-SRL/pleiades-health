@@ -43,20 +43,22 @@ export default async function middleware(req: NextRequest) {
     hostname === "localhost:3000" ||
     hostname === process.env.NEXT_PUBLIC_ROOT_DOMAIN
   ) {
-    // if (path === "/login") {
-    //   return NextResponse.redirect(
-    //     // Automatic redirection to ssl page, but this might be a security issue
-    //     new URL(
-    //       `http://app.${
-    //         process.env.NODE_ENV === "development"
-    //           ? "localhost:3000"
-    //           : process.env.NEXT_PUBLIC_ROOT_DOMAIN
-    //       }${path}`,
-    //       req.url,
-    //     ),
-    //   );
-    // }
-    return NextResponse.rewrite(new URL(`/home${path}`, req.url));
+    if (path === "/login") {
+      return NextResponse.redirect(
+        // Automatic redirection to ssl page, but this might be a security issue
+        new URL(
+          `http://app.${
+            process.env.NODE_ENV === "development"
+              ? "localhost:3000"
+              : process.env.NEXT_PUBLIC_ROOT_DOMAIN
+          }${path}`,
+          req.url,
+        ),
+      );
+    }
+    return NextResponse.rewrite(
+      new URL(`/home${path === "/" ? "" : path}`, req.url),
+    );
   }
 
   // rewrite everything else to `/[domain]/[path] dynamic route
