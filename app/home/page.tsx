@@ -8,7 +8,7 @@ export default function HomePage() {
           width={512}
           height={512}
           src="/logo.png"
-          alt="Platforms on Vercel"
+          alt="VCBiotech Health Community"
         />
       </div>
     </div>

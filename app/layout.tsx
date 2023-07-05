@@ -3,12 +3,12 @@ import { cal, inter } from "@/styles/fonts";
 import { Analytics } from "@vercel/analytics/react";
 import { Providers } from "./providers";
 import { Metadata } from "next";
-import clsx from "clsx";
+import { cn } from "@/lib/utils";
 
 export const metadata: Metadata = {
-  title: "Platforms Starter Kit",
+  title: "VCBiotech Health Community",
   description:
-    "Create a fullstack application with multi-tenancy and custom domains support using Next.js, Prisma, and PostgreSQL",
+    "VCBiotech Health Community offers healthcare professionals the best platform to modernize their private consultation.",
   icons: ["https://vercel.pub/favicon.ico"],
 };
 
@@ -19,7 +19,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={clsx(cal.variable, inter.variable)}>
+      <body className={cn(cal.variable, inter.variable)}>
         <Providers>
           {children}
           <Analytics />
