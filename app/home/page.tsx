@@ -16,7 +16,7 @@ export default async function HomePage() {
           alt="VCBiotech Health Community"
         />
         <Link
-          href="/login"
+          href={`/login`}
           className={cn(buttonVariants({ variant: "default" }), "w-full")}
         >
           {session ? "Go to Dashboard" : "Sign in"}
