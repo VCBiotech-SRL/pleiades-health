@@ -25,7 +25,7 @@ export async function POST(req: Request): Promise<Response> {
     });
 
     const { success, limit, reset, remaining } = await ratelimit.limit(
-      `platforms_ratelimit_${ip}`,
+      `vcbiotech_chatgpt_ratelimit_${ip}`,
     );
 
     if (!success) {

@@ -38,13 +38,15 @@ export const env = createEnv({
     AUTH_GITHUB_SECRET: z.string().min(1),
     AUTH_GOOGLE_ID: z.string().min(1),
     AUTH_GOOGLE_SECRET: z.string().min(1),
-  },
-  client: {
+
+    // For reason's I have yet to discover this goes here
     NEXT_PUBLIC_ROOT_DOMAIN: z.string().min(1),
     NEXT_PUBLIC_STRIPE_STD_PRODUCT_ID: z.string().min(1),
     NEXT_PUBLIC_STRIPE_STD_MONTHLY_PRICE_ID: z.string().min(1),
     NEXT_PUBLIC_STRIPE_PRO_PRODUCT_ID: z.string().min(1),
     NEXT_PUBLIC_STRIPE_PRO_MONTHLY_PRICE_ID: z.string().min(1),
+  },
+  client: {
     // NEXT_PUBLIC_PUBLISHABLE_KEY: z.string().min(1),
   },
   // For Next.js >= 13.4.4, you only need to destructure client variables:
