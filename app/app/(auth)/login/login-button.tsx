@@ -1,12 +1,12 @@
 "use client";
 
 import LoadingDots from "@/components/icons/loading-dots";
-import { GitHubLogoIcon } from "@radix-ui/react-icons";
 import { signIn } from "next-auth/react";
 import { useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
+import { cn } from "@/lib/utils";
 
 type SignInProps = {
   provider: "google" | "github";
@@ -32,17 +32,11 @@ export default function LoginButton({ provider, children }: SignInProps) {
         setLoading(true);
         signIn(provider);
       }}
-      className={`${
-        loading
-          ? "cursor-not-allowed bg-stone-50"
-          : "bg-white hover:bg-stone-50 active:bg-stone-100"
-      } group my-2 flex h-10 w-full items-center justify-center space-x-2 rounded-md border border-stone-200 transition-colors duration-75 focus:outline-none`}
+      className={cn(loading ?? "cursor-not-allowed", "w-full")}
+      variant={"outline"}
+      size={"lg"}
     >
-      {loading ? <LoadingDots color="#A8A29E" /> : (
-        <>
-          {children}
-        </>
-      )}
+      {loading ? <LoadingDots color="#A8A29E" /> : children}
     </Button>
   );
 }

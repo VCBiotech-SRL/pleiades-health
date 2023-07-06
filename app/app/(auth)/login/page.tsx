@@ -3,40 +3,43 @@ import LoginButton from "./login-button";
 import { Suspense } from "react";
 import { GitHubLogoIcon } from "@radix-ui/react-icons";
 import { GoogleIcon } from "@/components/icons/google-icon";
+import { intl } from "@/intl";
 
 export default function LoginPage() {
+  const dict = intl();
   return (
-    <div className="mx-5 border border-stone-200 py-10 sm:mx-auto sm:w-full sm:max-w-lg sm:rounded-lg sm:shadow-md">
+    <div className="sm:mx-auto sm:w-full sm:max-w-lg sm:shadow-md p-10 rounded border dark:border-none">
       <Image
         alt="Platforms Starter Kit"
         width={100}
         height={100}
-        className="relative mx-auto h-12 w-auto invert"
-        src="/logo.png"
+        className="relative h-20 w-auto dark:invert mx-auto"
+        src="/logo.svg"
       />
-      <h1 className="mt-6 text-center font-cal text-3xl text-gray-900">
-        VCBiotech Health Community
+      <h1 className="font-cal text-2xl text-primary text-center mt-5">
+        {dict.login.title}
       </h1>
-      <p className="mt-2 text-center text-sm text-gray-600">
-        Utiliza unos de nuestros proveedores para ingresar a tu sistema
+
+      <p className="mt-8 text-center text-base text-muted-foreground mx-auto">
+        {dict.login.subtitle}
       </p>
 
-      <div className="mx-auto mt-4 w-11/12 max-w-xs sm:w-full">
+      <div className="flex flex-col gap-5 mx-auto mt-6 w-11/12 max-w-xs sm:w-full justify-center">
         <Suspense
           fallback={
             <div className="my-2 h-10 w-full rounded-md border border-stone-200 bg-stone-100" />
           }
         >
-          <LoginButton provider="github">
-            <GitHubLogoIcon className="text-neutral-900 dark:text-neutral-100" />
-            <p className="text-sm font-medium text-stone-600">
-              Github
+          <LoginButton provider="google">
+            <GoogleIcon className="mr-2 h-4 w-4" />
+            <p className="text-base font-medium">
+              Google
             </p>
           </LoginButton>
-          <LoginButton provider="google">
-            <GoogleIcon className="text-neutral-900 dark:text-neutral-100" />
-            <p className="text-sm font-medium text-stone-600">
-              Google
+          <LoginButton provider="github">
+            <GitHubLogoIcon className="mr-2 h-4 w-4" />
+            <p className="text-base font-medium">
+              Github
             </p>
           </LoginButton>
         </Suspense>
