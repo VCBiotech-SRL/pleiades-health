@@ -103,7 +103,7 @@ export const updateSite = withSiteAuth(
         if (site.customDomain && site.customDomain !== value) {
           response = await removeDomainFromVercelProject(site.customDomain);
 
-          /* Optional: remove domain from Vercel team 
+          /* Optional: remove domain from Vercel team
 
           // first, we need to check if the apex domain is being used by other sites
           const apexDomain = getApexDomain(`https://${site.customDomain}`);
@@ -133,7 +133,7 @@ export const updateSite = withSiteAuth(
               site.customDomain
             );
           }
-          
+
           */
         }
       } else if (key === "image" || key === "logo") {
@@ -293,7 +293,7 @@ export const updatePost = async (data: Post) => {
     // if the site has a custom domain, we need to revalidate those tags too
     post.site?.customDomain &&
       (revalidateTag(`${post.site?.customDomain}-posts`),
-      revalidateTag(`${post.site?.customDomain}-${post.slug}`));
+        revalidateTag(`${post.site?.customDomain}-${post.slug}`));
 
     return response;
   } catch (error: any) {
@@ -355,7 +355,7 @@ export const updatePostMetadata = withPostAuth(
       // if the site has a custom domain, we need to revalidate those tags too
       post.site?.customDomain &&
         (revalidateTag(`${post.site?.customDomain}-posts`),
-        revalidateTag(`${post.site?.customDomain}-${post.slug}`));
+          revalidateTag(`${post.site?.customDomain}-${post.slug}`));
 
       return response;
     } catch (error: any) {

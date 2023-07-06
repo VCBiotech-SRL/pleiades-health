@@ -8,6 +8,7 @@ import { notFound, redirect } from "next/navigation";
 import { getSiteData } from "@/lib/fetchers";
 import { fontMapper } from "@/styles/fonts";
 import { Metadata } from "next";
+import { env } from "@/env.mjs";
 
 export async function generateMetadata({
   params,
@@ -126,12 +127,10 @@ export default async function SiteLayout({
 
       <div className="mt-20">{children}</div>
 
-      {params.domain == `demo.vercel.pub` ||
-      params.domain == `platformize.co` ? (
-        <CTA />
-      ) : (
-        <ReportAbuse />
-      )}
+      {params.domain == `demo.${env.NEXT_PUBLIC_ROOT_DOMAIN}` ||
+          params.domain == `platformize.co`
+        ? <CTA />
+        : <ReportAbuse />}
     </div>
   );
 }

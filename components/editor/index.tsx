@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { useEditor, EditorContent } from "@tiptap/react";
+import { EditorContent, useEditor } from "@tiptap/react";
 import { TiptapEditorProps } from "./props";
 import { TiptapExtensions } from "./extensions";
 import { useDebounce } from "use-debounce";
@@ -92,21 +92,17 @@ export default function Editor({ post }: { post: PostWithSite }) {
   const { complete, completion, isLoading, stop } = useCompletion({
     id: "novel",
     api: "/api/generate",
-    onResponse: (response) => {
-      if (response.status === 429) {
-        toast.error("You have reached your request limit for the day.");
-        va.track("Rate Limit Reached");
-        return;
-      }
-    },
     onFinish: (_prompt, completion) => {
       editor?.commands.setTextSelection({
         from: editor.state.selection.from - completion.length,
         to: editor.state.selection.from,
       });
     },
-    onError: () => {
-      toast.error("Something went wrong.");
+    onError: (err) => {
+      toast.error(err.message);
+      if (err.message === "You have reached your request limit for the day.") {
+        va.track("Rate Limit Reached");
+      }
     },
   });
 
@@ -205,11 +201,9 @@ export default function Editor({ post }: { post: PostWithSite }) {
           )}
           disabled={isPendingPublishing}
         >
-          {isPendingPublishing ? (
-            <LoadingDots />
-          ) : (
-            <p>{data.published ? "Unpublish" : "Publish"}</p>
-          )}
+          {isPendingPublishing
+            ? <LoadingDots />
+            : <p>{data.published ? "Unpublish" : "Publish"}</p>}
         </button>
       </div>
       <div className="mb-5 flex flex-col space-y-3 border-b border-stone-200 pb-5 dark:border-stone-700">
