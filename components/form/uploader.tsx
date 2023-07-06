@@ -45,7 +45,7 @@ export default function Uploader({
       <label
         htmlFor={`${name}-upload`}
         className={clsx(
-          "group relative mt-2 flex cursor-pointer flex-col items-center justify-center rounded-md border border-gray-300 bg-white shadow-sm transition-all hover:bg-gray-50",
+          "group relative mt-2 flex cursor-pointer flex-col items-center justify-center rounded border bg-background shadow-sm transition-all hover:bg-gray-50",
           aspectRatio,
           {
             "max-w-screen-md": aspectRatio === "aspect-video",
@@ -54,7 +54,7 @@ export default function Uploader({
         )}
       >
         <div
-          className="absolute z-[5] h-full w-full rounded-md"
+          className="absolute z-[5] h-full w-full rounded"
           onDragOver={(e) => {
             e.preventDefault();
             e.stopPropagation();
