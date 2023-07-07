@@ -3,8 +3,9 @@
 import { truncate } from "@/lib/utils";
 import { ImageResponse } from "next/server";
 import prisma from "@/lib/prisma";
+import { env } from "@/env.mjs";
 
-export const runtime = "edge";
+// export const runtime = "edge";
 
 export default async function PostOG({
   params,
@@ -13,8 +14,8 @@ export default async function PostOG({
 }) {
   const { domain, slug } = params;
 
-  const subdomain = domain.endsWith(`.${process.env.NEXT_PUBLIC_ROOT_DOMAIN}`)
-    ? domain.replace(`.${process.env.NEXT_PUBLIC_ROOT_DOMAIN}`, "")
+  const subdomain = domain.endsWith(`.${env.NEXT_PUBLIC_ROOT_DOMAIN}`)
+    ? domain.replace(`.${env.NEXT_PUBLIC_ROOT_DOMAIN}`, "")
     : null;
 
   const data = await prisma.post.findFirst({
