@@ -14,7 +14,7 @@ export default async function HomePage() {
           height={512}
           src="/logo.png"
           alt="VCBiotech Health Community"
-          className="dark:invert"
+          className=""
         />
         <Link
           href={`/login`}
