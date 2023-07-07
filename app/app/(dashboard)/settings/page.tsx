@@ -1,7 +1,7 @@
-import Form from "@/components/form";
 import { getSession } from "@/lib/auth";
 import { redirect } from "next/navigation";
-import { editUser } from "@/lib/actions";
+import { editUser } from "@/lib/actions/user";
+import { UpdateStringForm } from "@/components/form/update-string-form";
 
 export default async function SettingsPage() {
   const session = await getSession();
@@ -14,30 +14,30 @@ export default async function SettingsPage() {
         <h1 className="font-cal text-3xl font-bold dark:text-white">
           Settings
         </h1>
-        <Form
-          title="Name"
-          description="Your name on this app."
-          helpText="Please use 32 characters maximum."
+        <UpdateStringForm
+          title={"Nombre"}
+          description={"Tu nombre en VCBiotech Health Community."}
+          helpText={"Por favor, utiliza un máximo de 32 caractéres."}
+          handleSubmit={editUser}
           inputAttrs={{
             name: "name",
-            type: "text",
+            type: "string",
             defaultValue: session.user.name!,
-            placeholder: "Brendon Urie",
+            placeholder: "Miguel Calderon",
             maxLength: 32,
           }}
-          handleSubmit={editUser}
         />
-        <Form
-          title="Email"
-          description="Your email on this app."
-          helpText="Please enter a valid email."
+        <UpdateStringForm
+          title="Correo Electrónico"
+          description="Aquí te enviaremos todas las informaciones que necesitas."
+          helpText="Debe ser un correo electrónico válido."
+          handleSubmit={editUser}
           inputAttrs={{
             name: "email",
             type: "email",
             defaultValue: session.user.email!,
-            placeholder: "panic@thedis.co",
+            placeholder: "miguel@shills-php.co",
           }}
-          handleSubmit={editUser}
         />
       </div>
     </div>
