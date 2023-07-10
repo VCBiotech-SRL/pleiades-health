@@ -13,15 +13,17 @@ export function replaceLinks({
   // this is technically not a remark plugin but it
   // replaces internal links with <Link /> component
   // and external links with <a target="_blank" />
-  return href?.startsWith("/") || href === "" ? (
-    <Link href={href} className="cursor-pointer">
-      {children}
-    </Link>
-  ) : (
-    <a href={href} target="_blank" rel="noopener noreferrer">
-      {children} ↗
-    </a>
-  );
+  return href?.startsWith("/") || href === ""
+    ? (
+      <Link href={href} className="cursor-pointer">
+        {children}
+      </Link>
+    )
+    : (
+      <a href={href} target="_blank" rel="noopener noreferrer">
+        {children} ↗
+      </a>
+    );
 }
 
 export function replaceTweets() {
@@ -29,9 +31,9 @@ export function replaceTweets() {
     new Promise<void>(async (resolve, reject) => {
       const nodesToChange = new Array();
 
-      visit(tree, "text", (node: any) => {
+      visit(tree, "link", (node: any) => {
         if (
-          node.value.match(
+          node.url.match(
             /https?:\/\/twitter\.com\/(?:#!\/)?(\w+)\/status(?:es)?\/(\d+)([^\?])(\?.*)?/g,
           )
         ) {
@@ -43,8 +45,8 @@ export function replaceTweets() {
       for (const { node } of nodesToChange) {
         try {
           const regex = /\/status\/(\d+)/gm;
+          const matches = regex.exec(node.url);
 
-          const matches = regex.exec(node.value);
           if (!matches) throw new Error(`Failed to get tweet: ${node}`);
 
           const id = matches[1];
