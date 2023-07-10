@@ -9,9 +9,8 @@ export const env = createEnv({
     // OPEN AI
     OPENAI_API_KEY: z.string().min(1),
 
-    // Image upload for now, changing to upload thing in the future
+    // Image upload to vercel
     BLOB_READ_WRITE_TOKEN: z.string(),
-    UPLOADTHING_SECRET: z.string().min(1),
 
     // Vercel API to add subdomains
     AUTH_BEARER_TOKEN: z.string(),
@@ -51,8 +50,6 @@ export const env = createEnv({
   },
   // For Next.js >= 13.4.4, you only need to destructure client variables:
   experimental__runtimeEnv: {
-    // NEXT_PUBLIC_PUBLISHABLE_KEY: process.env.NEXT_PUBLIC_PUBLISHABLE_KEY,
-
     NEXT_PUBLIC_STRIPE_STD_PRODUCT_ID:
       process.env.NEXT_PUBLIC_STRIPE_STD_PRODUCT_ID,
 
