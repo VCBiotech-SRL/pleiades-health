@@ -1,15 +1,14 @@
+import { NodeSelector } from "./node-selector";
 import { BubbleMenu, BubbleMenuProps } from "@tiptap/react";
-import { FC, useState } from "react";
+import clsx from "clsx";
 import {
   BoldIcon,
-  ItalicIcon,
-  UnderlineIcon,
-  StrikethroughIcon,
   CodeIcon,
+  ItalicIcon,
+  StrikethroughIcon,
+  UnderlineIcon,
 } from "lucide-react";
-
-import { NodeSelector } from "./node-selector";
-import clsx from "clsx";
+import { FC, useState } from "react";
 
 export interface BubbleMenuItem {
   name: string;

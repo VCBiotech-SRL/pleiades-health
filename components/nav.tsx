@@ -1,57 +1,41 @@
 "use client";
 
-import Link from "next/link";
+import { ModeToggle } from "./theme-toggler";
+import { Button, buttonVariants } from "./ui/button";
+import { env } from "@/env.mjs";
+import { getSiteFromPostId } from "@/lib/actions";
+import { cn } from "@/lib/utils";
+import { ChatBubbleIcon, FileTextIcon } from "@radix-ui/react-icons";
 import {
   ArrowLeft,
   BarChart3,
   Edit3,
   Globe,
-  Layout,
   LayoutDashboard,
+  Mails,
   Menu,
   Newspaper,
   Settings,
 } from "lucide-react";
+import Image from "next/image";
+import Link from "next/link";
 import {
   useParams,
   usePathname,
   useSelectedLayoutSegments,
 } from "next/navigation";
 import { ReactNode, useEffect, useMemo, useState } from "react";
-import { getSiteFromPostId } from "@/lib/actions";
-import Image from "next/image";
-import { FileCode, Github } from "lucide-react";
 
 const externalLinks = [
   {
-    name: "Star on GitHub",
-    href: "https://github.com/vercel/platforms",
-    icon: <Github width={18} />,
+    name: "Ayuda",
+    href: `https://${env.NEXT_PUBLIC_ROOT_DOMAIN}`,
+    icon: <ChatBubbleIcon width={18} />,
   },
   {
-    name: "Read the guide",
-    href: "https://vercel.com/guides/nextjs-multi-tenant-application",
-    icon: <FileCode width={18} />,
-  },
-  {
-    name: "View demo site",
-    href: "https://demo.vercel.pub",
-    icon: <Layout width={18} />,
-  },
-  {
-    name: "Deploy your own",
-    href: "https://vercel.com/templates/next.js/platforms-starter-kit",
-    icon: (
-      <svg
-        width={18}
-        viewBox="0 0 76 76"
-        fill="none"
-        xmlns="http://www.w3.org/2000/svg"
-        className="py-1 text-black dark:text-white"
-      >
-        <path d="M37.5274 0L75.0548 65H0L37.5274 0Z" fill="currentColor" />
-      </svg>
-    ),
+    name: "Docs",
+    href: `https://docs.${env.NEXT_PUBLIC_ROOT_DOMAIN}`,
+    icon: <FileTextIcon width={18} />,
   },
 ];
 
@@ -89,6 +73,13 @@ export default function Nav({ children }: { children: ReactNode }) {
           isActive: segments.includes("analytics"),
           icon: <BarChart3 width={18} />,
         },
+        {
+          name: "Messages",
+          href: `/site/${id}/messages`,
+          isActive: segments.includes("messages"),
+          icon: <Mails width={18} />,
+        },
+
         {
           name: "Settings",
           href: `/site/${id}/settings`,
@@ -150,7 +141,9 @@ export default function Nav({ children }: { children: ReactNode }) {
 
   return (
     <>
-      <button
+      <Button
+        variant={"outline"}
+        size={"icon"}
         className={`fixed z-20 ${
           // left align for Editor, right align for other pages
           segments[0] === "post" && segments.length === 2 && !showSidebar
@@ -160,55 +153,48 @@ export default function Nav({ children }: { children: ReactNode }) {
         onClick={() => setShowSidebar(!showSidebar)}
       >
         <Menu width={20} />
-      </button>
+      </Button>
       <div
-        className={`transform ${
-          showSidebar ? "translate-x-0" : "-translate-x-full"
-        } fixed z-10 flex h-full w-full flex-col justify-between border-r border-stone-200 bg-stone-100 p-4 transition-all dark:border-stone-700 dark:bg-stone-900 sm:w-60 sm:translate-x-0`}
+        className={cn(
+          "fixed z-10 flex h-full w-full flex-col justify-between border-r",
+          "p-4 transition-all bg-secondary sm:w-80 sm:translate-x-0",
+          showSidebar
+            ? "transform translate-x-0"
+            : "transform -translate-x-full",
+        )}
       >
         <div className="grid gap-2">
-          <div className="flex items-center space-x-2 rounded-lg px-2 py-1.5">
-            <a
-              href="https://vercel.com/templates/next.js/platforms-starter-kit"
+          <div className="flex items-center space-x-2 rounded-lg py-1.5">
+            <Link
+              href={`https://${env.NEXT_PUBLIC_ROOT_DOMAIN}`}
               target="_blank"
               rel="noopener noreferrer"
-              className="rounded-lg p-1.5 hover:bg-stone-200 dark:hover:bg-stone-700"
-            >
-              <svg
-                width="26"
-                viewBox="0 0 76 65"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-                className="text-black dark:text-white"
-              >
-                <path
-                  d="M37.5274 0L75.0548 65H0L37.5274 0Z"
-                  fill="currentColor"
-                />
-              </svg>
-            </a>
-            <div className="h-6 rotate-[30deg] border-l border-stone-400 dark:border-stone-500" />
-            <Link
-              href="/"
-              className="rounded-lg p-2 hover:bg-stone-200 dark:hover:bg-stone-700"
+              className={cn(
+                "rounded-full p-1.5 hover:bg-background shrink-0 duration-300",
+              )}
             >
               <Image
                 src="/logo.png"
-                width={24}
-                height={24}
                 alt="Logo"
-                className="dark:scale-110 dark:rounded-full dark:border dark:border-stone-400"
+                width={26}
+                height={26}
+                className="rounded-full dark:invert"
               />
             </Link>
+            <div className="h-6 rotate-[15deg] border-l border-primary/50" />
+            {children}
           </div>
           <div className="grid gap-1">
             {tabs.map(({ name, href, isActive, icon }) => (
               <Link
                 key={name}
                 href={href}
-                className={`flex items-center space-x-3 ${
-                  isActive ? "bg-stone-200 text-black dark:bg-stone-700" : ""
-                } rounded-lg px-2 py-1.5 transition-all duration-150 ease-in-out hover:bg-stone-200 active:bg-stone-300 dark:text-white dark:hover:bg-stone-700 dark:active:bg-stone-800`}
+                className={cn(
+                  buttonVariants({ variant: "ghost" }),
+                  "flex items-center space-x-3 rounded px-2 py-1.5 transition-all duration-300 ease-in-out justify-start",
+                  isActive && "bg-background text-foreground",
+                  "hover:bg-background",
+                )}
               >
                 {icon}
                 <span className="text-sm font-medium">{name}</span>
@@ -217,25 +203,28 @@ export default function Nav({ children }: { children: ReactNode }) {
           </div>
         </div>
         <div>
-          <div className="grid gap-1">
+          <div className="h-[1px] w-full bg-border my-3" />
+          <div className="flex gap-1">
             {externalLinks.map(({ name, href, icon }) => (
               <a
                 key={name}
                 href={href}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center justify-between rounded-lg px-2 py-1.5 transition-all duration-150 ease-in-out hover:bg-stone-200 active:bg-stone-300 dark:text-white dark:hover:bg-stone-700 dark:active:bg-stone-800"
+                className={cn(
+                  buttonVariants({ variant: "muted" }),
+                  "hover:bg-background",
+                )}
               >
-                <div className="flex items-center space-x-3">
+                <div className="flex space-x-3 items-center">
                   {icon}
                   <span className="text-sm font-medium">{name}</span>
+                  <p>↗</p>
                 </div>
-                <p>↗</p>
               </a>
             ))}
+            <ModeToggle />
           </div>
-          <div className="my-2 border-t border-stone-200 dark:border-stone-700" />
-          {children}
         </div>
       </div>
     </>

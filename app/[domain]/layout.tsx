@@ -1,14 +1,14 @@
-import Image from "next/image";
-import Link from "next/link";
-import { ReactNode } from "react";
-import prisma from "@/lib/prisma";
 import CTA from "@/components/cta";
 import ReportAbuse from "@/components/report-abuse";
-import { notFound, redirect } from "next/navigation";
+import { env } from "@/env.mjs";
 import { getSiteData } from "@/lib/fetchers";
+import prisma from "@/lib/prisma";
 import { fontMapper } from "@/styles/fonts";
 import { Metadata } from "next";
-import { env } from "@/env.mjs";
+import Image from "next/image";
+import Link from "next/link";
+import { notFound, redirect } from "next/navigation";
+import { ReactNode } from "react";
 
 export async function generateMetadata({
   params,
@@ -128,9 +128,11 @@ export default async function SiteLayout({
       <div className="mt-20">{children}</div>
 
       {params.domain == `demo.${env.NEXT_PUBLIC_ROOT_DOMAIN}` ||
-          params.domain == `platformize.co`
-        ? <CTA />
-        : <ReportAbuse />}
+      params.domain == `platformize.co` ? (
+        <CTA />
+      ) : (
+        <ReportAbuse />
+      )}
     </div>
   );
 }

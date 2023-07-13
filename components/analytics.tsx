@@ -1,14 +1,14 @@
 "use client";
 
 import {
-  Card,
-  Text,
-  Title,
+  AreaChart,
   BarList,
+  Bold,
+  Card,
   Flex,
   Grid,
-  Bold,
-  AreaChart,
+  Text,
+  Title,
 } from "@tremor/react";
 import Image from "next/image";
 
@@ -17,10 +17,7 @@ const chartdata = [
     date: "Jan 23",
     Visitors: 2890,
   },
-  {
-    date: "Feb 23",
-    Visitors: 2756,
-  },
+  { date: "Feb 23", Visitors: 2756 },
   {
     date: "Mar 23",
     Visitors: 3322,

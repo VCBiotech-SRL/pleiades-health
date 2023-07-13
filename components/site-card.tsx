@@ -7,10 +7,10 @@ import Link from "next/link";
 export default function SiteCard({ data }: { data: Site }) {
   const url = `${data.subdomain}.${process.env.NEXT_PUBLIC_ROOT_DOMAIN}`;
   return (
-    <div className="relative rounded-lg border border-stone-200 pb-10 shadow-md transition-all hover:shadow-xl dark:border-stone-700 dark:hover:border-white">
+    <div className="relative rounded border pb-10 shadow-md transition-all hover:shadow-xl dark:hover:border-white">
       <Link
         href={`/site/${data.id}`}
-        className="flex flex-col overflow-hidden rounded-lg"
+        className="flex flex-col overflow-hidden rounded-[3px]"
       >
         <BlurImage
           alt={data.name ?? "Card thumbnail"}
@@ -32,9 +32,11 @@ export default function SiteCard({ data }: { data: Site }) {
       </Link>
       <div className="absolute bottom-4 flex w-full justify-between space-x-4 px-4">
         <a
-          href={process.env.NEXT_PUBLIC_VERCEL_ENV
-            ? `https://${url}`
-            : `http://${data.subdomain}.localhost:3000`}
+          href={
+            process.env.NEXT_PUBLIC_VERCEL_ENV
+              ? `https://${url}`
+              : `http://${data.subdomain}.localhost:3000`
+          }
           target="_blank"
           rel="noreferrer"
           className="truncate rounded-md bg-stone-100 px-2 py-1 text-sm font-medium text-stone-600 transition-colors hover:bg-stone-200 dark:bg-stone-800 dark:text-stone-400 dark:hover:bg-stone-700"

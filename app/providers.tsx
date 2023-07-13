@@ -1,9 +1,9 @@
 "use client";
 
-import { SessionProvider } from "next-auth/react";
-import { Toaster } from "sonner";
 import { ModalProvider } from "@/components/modal/provider";
 import { ThemeProvider } from "@/components/theme-provider";
+import { SessionProvider } from "next-auth/react";
+import { Toaster } from "sonner";
 
 export function Providers({ children }: { children: React.ReactNode }) {
   return (

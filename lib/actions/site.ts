@@ -1,9 +1,5 @@
 "use server";
 
-import { Site } from "@prisma/client";
-import { revalidateTag } from "next/cache";
-
-import prisma from "@/lib/prisma";
 import { env } from "@/env.mjs";
 import { getSession } from "@/lib/auth";
 import {
@@ -11,8 +7,11 @@ import {
   removeDomainFromVercelProject,
   validDomainRegex,
 } from "@/lib/domains";
+import prisma from "@/lib/prisma";
 import { generateId } from "@/lib/utils";
+import { Site } from "@prisma/client";
 import { put } from "@vercel/blob";
+import { revalidateTag } from "next/cache";
 
 async function getAuthedSiteFromId(siteId: string) {
   const session = await getSession();
@@ -36,9 +35,11 @@ async function getAuthedSiteFromId(siteId: string) {
   return { success: true, site };
 }
 
-export async function createSite(
-  payload: { name: string; description: string; subdomain: string },
-) {
+export async function createSite(payload: {
+  name: string;
+  description: string;
+  subdomain: string;
+}) {
   // Get session
   const session = await getSession();
   // Confirm user is logged in
@@ -47,6 +48,7 @@ export async function createSite(
       error: "Not authenticated",
     };
   }
+
   // Get variables
   const { name, description, subdomain } = payload;
   // Try update database
@@ -64,9 +66,7 @@ export async function createSite(
       },
     });
     // Revalidate tag for incresing static regen
-    revalidateTag(
-      `${site.subdomain}.${env.NEXT_PUBLIC_ROOT_DOMAIN}-metadata`,
-    );
+    revalidateTag(`${site.subdomain}.${env.NEXT_PUBLIC_ROOT_DOMAIN}-metadata`);
     // Return resppnse
     return { success: true, site };
   } catch (error: any) {
@@ -194,10 +194,7 @@ export async function updateSiteSubdomain(description: string, site: Site) {
   }
 }
 
-export async function updateSiteCustomDomain(
-  customDomain: string,
-  site: Site,
-) {
+export async function updateSiteCustomDomain(customDomain: string, site: Site) {
   // Check if user is authed
   getAuthedSiteFromId(site.id);
 

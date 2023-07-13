@@ -1,20 +1,18 @@
 "use server";
 
-import prisma from "@/lib/prisma";
-import { Post, Site } from "@prisma/client";
-import { revalidateTag } from "next/cache";
 import { withPostAuth, withSiteAuth } from "./auth";
 import { getSession } from "@/lib/auth";
 import {
-  addDomainToVercel,
-  // getApexDomain,
-  removeDomainFromVercelProject,
-  // removeDomainFromVercelTeam,
+  addDomainToVercel, // getApexDomain,
+  removeDomainFromVercelProject, // removeDomainFromVercelTeam,
   validDomainRegex,
 } from "@/lib/domains";
+import prisma from "@/lib/prisma";
+import { getBlurDataURL } from "@/lib/utils";
+import { Post, Site } from "@prisma/client";
 import { put } from "@vercel/blob";
 import { customAlphabet } from "nanoid";
-import { getBlurDataURL } from "@/lib/utils";
+import { revalidateTag } from "next/cache";
 
 const nanoid = customAlphabet(
   "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz",
@@ -254,7 +252,7 @@ export const updatePost = async (data: Post) => {
     // if the site has a custom domain, we need to revalidate those tags too
     post.site?.customDomain &&
       (await revalidateTag(`${post.site?.customDomain}-posts`),
-        await revalidateTag(`${post.site?.customDomain}-${post.slug}`));
+      await revalidateTag(`${post.site?.customDomain}-${post.slug}`));
 
     return response;
   } catch (error: any) {
@@ -316,7 +314,7 @@ export const updatePostMetadata = withPostAuth(
       // if the site has a custom domain, we need to revalidate those tags too
       post.site?.customDomain &&
         (await revalidateTag(`${post.site?.customDomain}-posts`),
-          await revalidateTag(`${post.site?.customDomain}-${post.slug}`));
+        await revalidateTag(`${post.site?.customDomain}-${post.slug}`));
 
       return response;
     } catch (error: any) {

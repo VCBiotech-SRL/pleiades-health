@@ -1,19 +1,19 @@
 "use client";
 
-import { toast } from "sonner";
-import { createSite } from "@/lib/actions/site";
-import { useRouter } from "next/navigation";
-import { experimental_useFormStatus as useFormStatus } from "react-dom";
-import { cn } from "@/lib/utils";
-import LoadingDots from "@/components/icons/loading-dots";
-import { useModal } from "./provider";
-import va from "@vercel/analytics";
-import { useEffect, useState } from "react";
+import { Button } from "../ui/button";
 import { Input } from "../ui/input";
 import { Label } from "../ui/label";
-import { intl } from "@/intl";
 import { Textarea } from "../ui/textarea";
-import { Button } from "../ui/button";
+import { useModal } from "./provider";
+import LoadingDots from "@/components/icons/loading-dots";
+import { intl } from "@/intl";
+import { createSite } from "@/lib/actions/site";
+import { cn } from "@/lib/utils";
+import va from "@vercel/analytics";
+import { useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
+import { experimental_useFormStatus as useFormStatus } from "react-dom";
+import { toast } from "sonner";
 
 export default function CreateSiteModal() {
   const router = useRouter();
@@ -72,14 +72,10 @@ export default function CreateSiteModal() {
       className="w-full rounded-md bg-background md:max-w-md md:border md:shadow"
     >
       <div className="relative flex flex-col space-y-6 p-5 md:p-10">
-        <h2 className="font-cal text-2xl dark:text-white">
-          {dict.title}
-        </h2>
+        <h2 className="font-cal text-2xl dark:text-white">{dict.title}</h2>
 
         <div className="flex flex-col space-y-2">
-          <Label htmlFor="name">
-            {dict.form.name.label}
-          </Label>
+          <Label htmlFor="name">{dict.form.name.label}</Label>
           <Input
             name="name"
             type="text"
@@ -93,9 +89,7 @@ export default function CreateSiteModal() {
         </div>
 
         <div className="flex flex-col space-y-2">
-          <Label htmlFor="name">
-            {dict.form.subdomain.label}
-          </Label>
+          <Label htmlFor="name">{dict.form.subdomain.label}</Label>
 
           <div className="flex w-full max-w-md">
             <Input
@@ -113,7 +107,7 @@ export default function CreateSiteModal() {
 
             <div
               className={cn(
-                "flex items-center rounded-r-md border border-l-0 bg-stone-200 text-stone-800 px-3 text-sm shadow-sm dark:bg-stone-800 text-stone-200",
+                "flex items-center rounded-r-md border border-l-0 bg-stone-200 text-stone-800 px-3 text-sm shadow-sm dark:bg-stone-800 dark:text-stone-200",
               )}
             >
               .{process.env.NEXT_PUBLIC_ROOT_DOMAIN}
@@ -122,9 +116,7 @@ export default function CreateSiteModal() {
         </div>
 
         <div className="flex flex-col space-y-2">
-          <Label htmlFor="description">
-            {dict.form.description.label}
-          </Label>
+          <Label htmlFor="description">{dict.form.description.label}</Label>
           <Textarea
             name="description"
             placeholder={dict.form.description.placeholder}
@@ -132,11 +124,10 @@ export default function CreateSiteModal() {
             onChange={(e) => setData({ ...data, description: e.target.value })}
             maxLength={140}
             rows={3}
-          >
-          </Textarea>
+          ></Textarea>
         </div>
       </div>
-      <div className="flex items-center justify-end rounded-b-lg border-t border-stone-200 bg-stone-50 dark:border-stone-700 dark:bg-stone-800">
+      <div className="flex items-center justify-end">
         <CreateSiteFormButton />
       </div>
     </form>
@@ -147,8 +138,9 @@ function CreateSiteFormButton() {
   const dict = intl().site.createModal;
   return (
     <Button
-      className={cn("w-full h-12")}
       disabled={pending}
+      className={cn("w-full h-12 rounded-t-none")}
+      variant={"default"}
     >
       {pending ? <LoadingDots color="#808080" /> : <p>{dict.buttonText}</p>}
     </Button>

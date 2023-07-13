@@ -1,21 +1,22 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
-import { EditorContent, useEditor } from "@tiptap/react";
-import { TiptapEditorProps } from "./props";
+import LoadingDots from "../icons/loading-dots";
+import { EditorBubbleMenu } from "./bubble-menu";
 import { TiptapExtensions } from "./extensions";
-import { useDebounce } from "use-debounce";
-import { useCompletion } from "ai/react";
-import { toast } from "sonner";
+import { TiptapEditorProps } from "./props";
+import { updatePost, updatePostMetadata } from "@/lib/actions";
+import { cn } from "@/lib/utils";
+import { Post } from "@prisma/client";
+import { EditorContent, useEditor } from "@tiptap/react";
 import va from "@vercel/analytics";
+import { useCompletion } from "ai/react";
+import clsx from "clsx";
+import { ExternalLink } from "lucide-react";
+import { useEffect, useRef, useState } from "react";
 import { useTransition } from "react";
 import TextareaAutosize from "react-textarea-autosize";
-import { EditorBubbleMenu } from "./bubble-menu";
-import { Post } from "@prisma/client";
-import { updatePost, updatePostMetadata } from "@/lib/actions";
-import clsx from "clsx";
-import LoadingDots from "../icons/loading-dots";
-import { ExternalLink } from "lucide-react";
+import { toast } from "sonner";
+import { useDebounce } from "use-debounce";
 
 type PostWithSite = Post & { site: { subdomain: string | null } | null };
 
@@ -160,7 +161,11 @@ export default function Editor({ post }: { post: PostWithSite }) {
   }, [editor, post, hydrated]);
 
   return (
-    <div className="relative min-h-[500px] w-full max-w-screen-xl border-stone-200 p-12 px-8 dark:border-stone-700 sm:mb-[calc(20vh)] sm:rounded-lg sm:border sm:px-12 sm:shadow-lg">
+    <div
+      className={cn(
+        "relative min-h-[768px] w-full max-w-screen-xl p-16 sm:p-12 px-8 sm:mb-[calc(20vh)]",
+      )}
+    >
       <div className="absolute right-5 top-5 mb-5 flex items-center space-x-3">
         {data.published && (
           <a
@@ -201,9 +206,11 @@ export default function Editor({ post }: { post: PostWithSite }) {
           )}
           disabled={isPendingPublishing}
         >
-          {isPendingPublishing
-            ? <LoadingDots />
-            : <p>{data.published ? "Unpublish" : "Publish"}</p>}
+          {isPendingPublishing ? (
+            <LoadingDots />
+          ) : (
+            <p>{data.published ? "Unpublish" : "Publish"}</p>
+          )}
         </button>
       </div>
       <div className="mb-5 flex flex-col space-y-3 border-b border-stone-200 pb-5 dark:border-stone-700">

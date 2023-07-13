@@ -1,8 +1,8 @@
-import { Configuration, OpenAIApi } from "openai-edge";
-import { OpenAIStream, StreamingTextResponse } from "ai";
 import { env } from "@/env.mjs";
 import { Ratelimit } from "@upstash/ratelimit";
 import { Redis } from "@upstash/redis";
+import { OpenAIStream, StreamingTextResponse } from "ai";
+import { Configuration, OpenAIApi } from "openai-edge";
 
 const redis = new Redis({
   url: env.UPSTASH_REDIS_REST_URL,
@@ -54,7 +54,7 @@ export async function POST(req: Request): Promise<Response> {
         content:
           "You are an AI writing assistant that continues existing text based on context from prior text. " +
           "Give more weight/priority to the later characters than the beginning ones. " +
-          "Limit your response to no more than 200 characters, but make sure to construct complete sentences.",
+          "Limit your response to no more than 500 characters, but make sure to construct complete sentences.",
         // "Use Markdown formatting when appropriate.",
       },
       {

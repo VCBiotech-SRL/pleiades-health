@@ -1,10 +1,9 @@
-import { getServerSession, type NextAuthOptions } from "next-auth";
+import { env } from "@/env.mjs";
+import prisma from "@/lib/prisma";
+import { PrismaAdapter } from "@next-auth/prisma-adapter";
+import { type NextAuthOptions, getServerSession } from "next-auth";
 import GitHubProvider from "next-auth/providers/github";
 import GoogleProvider from "next-auth/providers/google";
-import { PrismaAdapter } from "@next-auth/prisma-adapter";
-import prisma from "@/lib/prisma";
-
-import { env } from "@/env.mjs";
 
 const VERCEL_DEPLOYMENT = !!process.env.VERCEL_URL;
 
@@ -76,17 +75,15 @@ export const authOptions: NextAuthOptions = {
 };
 
 export function getSession() {
-  return getServerSession(authOptions) as Promise<
-    {
-      user: {
-        id: string;
-        name: string;
-        username: string;
-        email: string;
-        image: string;
-      };
-    } | null
-  >;
+  return getServerSession(authOptions) as Promise<{
+    user: {
+      id: string;
+      name: string;
+      username: string;
+      email: string;
+      image: string;
+    };
+  } | null>;
 }
 
 export function withSiteAuth(action: any) {

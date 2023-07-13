@@ -1,7 +1,7 @@
+import { UpdateStringForm } from "@/components/form/update-string-form";
+import { editUser } from "@/lib/actions/user";
 import { getSession } from "@/lib/auth";
 import { redirect } from "next/navigation";
-import { editUser } from "@/lib/actions/user";
-import { UpdateStringForm } from "@/components/form/update-string-form";
 
 export default async function SettingsPage() {
   const session = await getSession();

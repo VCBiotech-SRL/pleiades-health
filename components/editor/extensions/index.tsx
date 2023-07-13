@@ -1,17 +1,16 @@
-import StarterKit from "@tiptap/starter-kit";
-import HorizontalRule from "@tiptap/extension-horizontal-rule";
-import TiptapLink from "@tiptap/extension-link";
-import TiptapImage from "@tiptap/extension-image";
-import Placeholder from "@tiptap/extension-placeholder";
-import TiptapUnderline from "@tiptap/extension-underline";
-import TextStyle from "@tiptap/extension-text-style";
-import { Color } from "@tiptap/extension-color";
-import TaskItem from "@tiptap/extension-task-item";
-import TaskList from "@tiptap/extension-task-list";
-import { Markdown } from "tiptap-markdown";
-
 import SlashCommand from "./slash-command";
 import { InputRule } from "@tiptap/core";
+import { Color } from "@tiptap/extension-color";
+import HorizontalRule from "@tiptap/extension-horizontal-rule";
+import TiptapImage from "@tiptap/extension-image";
+import TiptapLink from "@tiptap/extension-link";
+import Placeholder from "@tiptap/extension-placeholder";
+import TaskItem from "@tiptap/extension-task-item";
+import TaskList from "@tiptap/extension-task-list";
+import TextStyle from "@tiptap/extension-text-style";
+import TiptapUnderline from "@tiptap/extension-underline";
+import StarterKit from "@tiptap/starter-kit";
+import { Markdown } from "tiptap-markdown";
 
 export const TiptapExtensions = [
   StarterKit.configure({

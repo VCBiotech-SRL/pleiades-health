@@ -1,34 +1,34 @@
-import React, {
-  useState,
-  useEffect,
-  useCallback,
-  ReactNode,
-  useRef,
-  useLayoutEffect,
-} from "react";
-import { Editor, Range, Extension } from "@tiptap/core";
-import Suggestion from "@tiptap/suggestion";
+import { handleImageUpload } from "../utils";
+import LoadingCircle from "@/components/icons/loading-circle";
+import Magic from "@/components/icons/magic";
+import { Editor, Extension, Range } from "@tiptap/core";
 import { ReactRenderer } from "@tiptap/react";
+import Suggestion from "@tiptap/suggestion";
+import va from "@vercel/analytics";
 import { useCompletion } from "ai/react";
-import tippy from "tippy.js";
 import {
+  CheckSquare,
+  Code,
   Heading1,
   Heading2,
   Heading3,
+  Image as ImageIcon,
   List,
   ListOrdered,
   MessageSquarePlus,
   Text,
   TextQuote,
-  Image as ImageIcon,
-  Code,
-  CheckSquare,
 } from "lucide-react";
-import LoadingCircle from "@/components/icons/loading-circle";
+import React, {
+  ReactNode,
+  useCallback,
+  useEffect,
+  useLayoutEffect,
+  useRef,
+  useState,
+} from "react";
 import { toast } from "sonner";
-import va from "@vercel/analytics";
-import Magic from "@/components/icons/magic";
-import { handleImageUpload } from "../utils";
+import tippy from "tippy.js";
 
 interface CommandItemProps {
   title: string;

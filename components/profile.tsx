@@ -1,8 +1,10 @@
-import { getSession } from "@/lib/auth";
-import { redirect } from "next/navigation";
-import Link from "next/link";
-import Image from "next/image";
 import LogoutButton from "./logout-button";
+import { buttonVariants } from "./ui/button";
+import { getSession } from "@/lib/auth";
+import { cn } from "@/lib/utils";
+import Image from "next/image";
+import Link from "next/link";
+import { redirect } from "next/navigation";
 
 export default async function Profile() {
   const session = await getSession();
@@ -11,10 +13,13 @@ export default async function Profile() {
   }
 
   return (
-    <div className="flex w-full items-center justify-between">
+    <div className="flex w-full items-center justify-between px-2">
       <Link
         href="/settings"
-        className="flex w-full flex-1 items-center space-x-3 rounded-lg px-2 py-1.5 transition-all duration-150 ease-in-out hover:bg-stone-200 active:bg-stone-300 dark:text-white dark:hover:bg-stone-700 dark:active:bg-stone-800"
+        className={cn(
+          buttonVariants({ variant: "outline" }),
+          "rounded-full p-1.5 shrink-0 duration-300 gap-3 py-1.5 pr-4",
+        )}
       >
         <Image
           src={

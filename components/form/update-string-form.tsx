@@ -1,10 +1,8 @@
 "use client";
 
-import { useSession } from "next-auth/react";
-import { useParams, useRouter } from "next/navigation";
-import { toast } from "sonner";
-import va from "@vercel/analytics";
-
+import LoadingDots from "../icons/loading-dots";
+import { Button } from "../ui/button";
+import { Textarea } from "../ui/textarea";
 import {
   Form,
   FormControl,
@@ -14,15 +12,16 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
-import { useForm } from "react-hook-form";
 import { Input } from "@/components/ui/input";
-import * as z from "zod";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { Button } from "../ui/button";
-import { Textarea } from "../ui/textarea";
 import { cn } from "@/lib/utils";
-import LoadingDots from "../icons/loading-dots";
+import { zodResolver } from "@hookform/resolvers/zod";
+import va from "@vercel/analytics";
+import { useSession } from "next-auth/react";
+import { useParams, useRouter } from "next/navigation";
 import { useState } from "react";
+import { useForm } from "react-hook-form";
+import { toast } from "sonner";
+import * as z from "zod";
 
 type MetadataForm = {
   title: string;
@@ -40,9 +39,13 @@ type MetadataForm = {
   };
 };
 
-export function UpdateStringForm(
-  { title, description, helpText, inputAttrs, handleSubmit }: MetadataForm,
-) {
+export function UpdateStringForm({
+  title,
+  description,
+  helpText,
+  inputAttrs,
+  handleSubmit,
+}: MetadataForm) {
   // Get form data for update
   const { id } = useParams() as { id?: string };
   const router = useRouter();
@@ -50,12 +53,10 @@ export function UpdateStringForm(
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const formSchema = z.object({
-    value: z.string()
+    value: z
+      .string()
       .min(inputAttrs.minLength ?? 10, "Too short")
-      .max(
-        inputAttrs.maxLength ?? 32,
-        "Too long",
-      ),
+      .max(inputAttrs.maxLength ?? 32, "Too long"),
   });
 
   const form = useForm<z.infer<typeof formSchema>>({
@@ -108,9 +109,11 @@ export function UpdateStringForm(
                 {description}
               </FormDescription>
               <FormControl>
-                {inputAttrs.name === "description"
-                  ? <Textarea {...field} placeholder={inputAttrs.placeholder} />
-                  : <Input {...field} placeholder={inputAttrs.placeholder} />}
+                {inputAttrs.name === "description" ? (
+                  <Textarea {...field} placeholder={inputAttrs.placeholder} />
+                ) : (
+                  <Input {...field} placeholder={inputAttrs.placeholder} />
+                )}
               </FormControl>
             </FormItem>
           )}
@@ -127,9 +130,9 @@ export function UpdateStringForm(
           <FormMessage />
           <Button
             className={cn(
+              "w-24",
               isSubmitting ??
                 "cursor-not-allowed border-stone-200 bg-stone-100 text-stone-400 dark:border-stone-700 dark:bg-stone-800 dark:text-stone-300",
-              "w-24",
             )}
             disabled={isSubmitting}
           >

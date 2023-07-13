@@ -1,5 +1,4 @@
 // a bunch of loading divs
-
 import PlacholderCard from "@/components/placeholder-card";
 
 export default function Loading() {

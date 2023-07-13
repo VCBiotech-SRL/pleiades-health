@@ -1,10 +1,10 @@
+import BlogCard from "@/components/blog-card";
+import BlurImage from "@/components/blur-image";
+import { getPostsForSite, getSiteData } from "@/lib/fetchers";
+import { placeholderBlurhash, toDateString } from "@/lib/utils";
+import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import BlurImage from "@/components/blur-image";
-import { placeholderBlurhash, toDateString } from "@/lib/utils";
-import BlogCard from "@/components/blog-card";
-import { getPostsForSite, getSiteData } from "@/lib/fetchers";
-import Image from "next/image";
 
 export default async function SiteHomePage({
   params,

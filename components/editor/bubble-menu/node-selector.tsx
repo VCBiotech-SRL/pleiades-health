@@ -1,18 +1,18 @@
+import { BubbleMenuItem } from ".";
 import { Editor } from "@tiptap/core";
 import {
   Check,
+  CheckSquare,
   ChevronDown,
+  Code,
   Heading1,
   Heading2,
   Heading3,
-  TextQuote,
   ListOrdered,
   TextIcon,
-  Code,
-  CheckSquare,
+  TextQuote,
 } from "lucide-react";
 import { Dispatch, FC, SetStateAction } from "react";
-import { BubbleMenuItem } from ".";
 
 interface NodeSelectorProps {
   editor: Editor;

@@ -1,18 +1,11 @@
 "use client";
 
-import va from "@vercel/analytics";
-import { useSession } from "next-auth/react";
-import { useParams, useRouter } from "next/navigation";
-import { experimental_useFormStatus as useFormStatus } from "react-dom";
-import { toast } from "sonner";
-
-import DomainStatus from "./domain-status";
 import DomainConfiguration from "./domain-configuration";
+import DomainStatus from "./domain-status";
 import Uploader from "./uploader";
-
-import { cn } from "@/lib/utils";
-
 import LoadingDots from "@/components/icons/loading-dots";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
 import {
   Select,
   SelectContent,
@@ -20,9 +13,13 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import { Button } from "@/components/ui/button";
+import { cn } from "@/lib/utils";
+import va from "@vercel/analytics";
+import { useSession } from "next-auth/react";
+import { useParams, useRouter } from "next/navigation";
+import { experimental_useFormStatus as useFormStatus } from "react-dom";
+import { toast } from "sonner";
 
 export default function Form({
   title,
@@ -80,73 +77,50 @@ export default function Form({
         <p className="text-sm text-stone-500 dark:text-stone-400">
           {description}
         </p>
-        {inputAttrs.name === "image" || inputAttrs.name === "logo"
-          ? (
-            <Uploader
-              defaultValue={inputAttrs.defaultValue}
-              name={inputAttrs.name}
-            />
-          )
-          : inputAttrs.name === "font"
-          ? (
-            <div className="flex max-w-sm items-center overflow-hidden rounded-lg border border-stone-600">
-              <Select defaultValue={inputAttrs.defaultValue}>
-                <SelectTrigger>
-                  <SelectValue placeholder="Font styling" />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="font-cal">Cal Sans</SelectItem>
-                  <SelectItem value="font-lora">Lora</SelectItem>
-                  <SelectItem value="font-work">Work Sans</SelectItem>
-                </SelectContent>
-              </Select>
-            </div>
-          )
-          : inputAttrs.name === "subdomain"
-          ? (
-            <div className="flex w-full max-w-md">
-              <Input
-                {...inputAttrs}
-                required
-              />
-              <div
-                className={cn(
-                  "flex items-center rounded-r-md border border-l-0 bg-stone-200 text-stone-800 dark:bg-stone-800 dark:text-stone-200 px-3 text-sm shadow-sm",
-                )}
-              >
-                {process.env.NEXT_PUBLIC_ROOT_DOMAIN}
-              </div>
-            </div>
-          )
-          : inputAttrs.name === "customDomain"
-          ? (
-            <div className="relative flex w-full max-w-md">
-              <Input
-                {...inputAttrs}
-                required
-              />
-
-              {inputAttrs.defaultValue && (
-                <div className="absolute right-3 z-10 flex h-full items-center">
-                  <DomainStatus domain={inputAttrs.defaultValue} />
-                </div>
+        {inputAttrs.name === "image" || inputAttrs.name === "logo" ? (
+          <Uploader
+            defaultValue={inputAttrs.defaultValue}
+            name={inputAttrs.name}
+          />
+        ) : inputAttrs.name === "font" ? (
+          <div className="flex max-w-sm items-center overflow-hidden rounded-lg border border-stone-600">
+            <Select {...inputAttrs}>
+              <SelectTrigger>
+                <SelectValue placeholder="Font styling" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="font-cal">Cal Sans</SelectItem>
+                <SelectItem value="font-lora">Lora</SelectItem>
+                <SelectItem value="font-work">Work Sans</SelectItem>
+              </SelectContent>
+            </Select>
+          </div>
+        ) : inputAttrs.name === "subdomain" ? (
+          <div className="flex w-full max-w-md">
+            <Input {...inputAttrs} required />
+            <div
+              className={cn(
+                "flex items-center rounded-r-md border border-l-0 bg-stone-200 text-stone-800 dark:bg-stone-800 dark:text-stone-200 px-3 text-sm shadow-sm",
               )}
+            >
+              {process.env.NEXT_PUBLIC_ROOT_DOMAIN}
             </div>
-          )
-          : inputAttrs.name === "description"
-          ? (
-            <Textarea
-              {...inputAttrs}
-              rows={3}
-              required
-            />
-          )
-          : (
-            <Input
-              {...inputAttrs}
-              required
-            />
-          )}
+          </div>
+        ) : inputAttrs.name === "customDomain" ? (
+          <div className="relative flex w-full max-w-md">
+            <Input {...inputAttrs} required />
+
+            {inputAttrs.defaultValue && (
+              <div className="absolute right-3 z-10 flex h-full items-center">
+                <DomainStatus domain={inputAttrs.defaultValue} />
+              </div>
+            )}
+          </div>
+        ) : inputAttrs.name === "description" ? (
+          <Textarea {...inputAttrs} rows={3} required />
+        ) : (
+          <Input {...inputAttrs} required />
+        )}
       </div>
       {inputAttrs.name === "customDomain" && inputAttrs.defaultValue && (
         <DomainConfiguration domain={inputAttrs.defaultValue} />
@@ -164,12 +138,13 @@ function FormButton() {
   return (
     <Button
       className={cn(
+        "w-24",
         pending ??
           "cursor-not-allowed border-stone-200 bg-stone-100 text-stone-400 dark:border-stone-700 dark:bg-stone-800 dark:text-stone-300",
       )}
       disabled={pending}
     >
-      {pending ? <LoadingDots color="#808080" /> : <p>Save Changes</p>}
+      {pending ? <LoadingDots color="#808080" /> : <p>Guardar</p>}
     </Button>
   );
 }

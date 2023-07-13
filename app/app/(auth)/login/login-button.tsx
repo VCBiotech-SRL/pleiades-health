@@ -1,12 +1,12 @@
 "use client";
 
 import LoadingDots from "@/components/icons/loading-dots";
+import { Button } from "@/components/ui/button";
+import { cn } from "@/lib/utils";
 import { signIn } from "next-auth/react";
 import { useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import { toast } from "sonner";
-import { Button } from "@/components/ui/button";
-import { cn } from "@/lib/utils";
 
 type SignInProps = {
   provider: "google" | "github";

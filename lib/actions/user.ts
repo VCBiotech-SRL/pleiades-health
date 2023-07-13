@@ -3,15 +3,13 @@
 import { getSession } from "../auth";
 import prisma from "@/lib/prisma";
 
-export const editUser = async (
-  {
-    key,
-    value,
-  }: {
-    key: string;
-    value: string;
-  },
-) => {
+export const editUser = async ({
+  key,
+  value,
+}: {
+  key: string;
+  value: string;
+}) => {
   const session = await getSession();
   if (!session?.user.id) {
     return {

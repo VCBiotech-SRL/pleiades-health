@@ -1,9 +1,8 @@
 /* eslint-disable @next/next/no-img-element */
-
+import { env } from "@/env.mjs";
+import prisma from "@/lib/prisma";
 import { truncate } from "@/lib/utils";
 import { ImageResponse } from "next/server";
-import prisma from "@/lib/prisma";
-import { env } from "@/env.mjs";
 
 // export const runtime = "edge";
 

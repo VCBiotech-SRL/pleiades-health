@@ -1,8 +1,8 @@
 "use client";
 
-import { AlertCircle, CheckCircle2, XCircle } from "lucide-react";
 import LoadingSpinner from "./loading-spinner";
 import { useDomainStatus } from "./use-domain-status";
+import { AlertCircle, CheckCircle2, XCircle } from "lucide-react";
 
 export default function DomainStatus({ domain }: { domain: string }) {
   const { status, loading } = useDomainStatus({ domain });

@@ -1,10 +1,10 @@
-import "@/styles/globals.css";
-import { cal, inter } from "@/styles/fonts";
-import { Analytics } from "@vercel/analytics/react";
 import { Providers } from "./providers";
-import { Metadata } from "next";
-import { cn } from "@/lib/utils";
 import { env } from "@/env.mjs";
+import { cn } from "@/lib/utils";
+import { cal, inter } from "@/styles/fonts";
+import "@/styles/globals.css";
+import { Analytics } from "@vercel/analytics/react";
+import { Metadata } from "next";
 
 export const metadata: Metadata = {
   title: {
@@ -20,10 +20,12 @@ export const metadata: Metadata = {
     "EMR",
     "Appointment Manager",
   ],
-  authors: [{
-    name: "Victor Calderon",
-    url: "https://me.vcbio.tech/",
-  }],
+  authors: [
+    {
+      name: "Victor Calderon",
+      url: "https://me.vcbio.tech/",
+    },
+  ],
   creator: "VictoCalderon",
   openGraph: {
     type: "website",
@@ -43,6 +45,7 @@ export const metadata: Metadata = {
     shortcut: "/favicon-16x16.png",
     apple: "/apple-touch-icon.png",
   },
+  metadataBase: new URL("https://" + env.NEXT_PUBLIC_ROOT_DOMAIN),
 };
 
 export default function RootLayout({

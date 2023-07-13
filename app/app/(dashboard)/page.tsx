@@ -1,19 +1,24 @@
-import { Suspense } from "react";
-import Sites from "@/components/sites";
-import OverviewStats from "@/components/overview-stats";
-import Posts from "@/components/posts";
-import Link from "next/link";
-import PlacholderCard from "@/components/placeholder-card";
+import { Greeter } from "@/components/greeter";
 import OverviewSitesCTA from "@/components/overview-sites-cta";
+import OverviewStats from "@/components/overview-stats";
+import PlacholderCard from "@/components/placeholder-card";
+import Posts from "@/components/posts";
+import Sites from "@/components/sites";
+import { Suspense } from "react";
 
 export default function Overview() {
   return (
-    <div className="flex max-w-screen-xl flex-col space-y-12 p-8">
+    <div className="flex max-w-screen-xl flex-col space-y-12 p-6">
+      <Greeter />
       <div className="flex flex-col space-y-6">
         <h1 className="font-cal text-3xl font-bold dark:text-white">
           Overview
         </h1>
-        <OverviewStats />
+
+        <div className="grid gap-6 sm:grid-cols-2">
+          <OverviewStats metric="Total de Visitas" total={142091} />
+          <OverviewStats metric="Contactos" total={12189} />
+        </div>
       </div>
 
       <div className="flex flex-col space-y-6">

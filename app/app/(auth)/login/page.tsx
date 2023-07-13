@@ -1,9 +1,9 @@
-import Image from "next/image";
 import LoginButton from "./login-button";
-import { Suspense } from "react";
-import { GitHubLogoIcon } from "@radix-ui/react-icons";
 import { GoogleIcon } from "@/components/icons/google-icon";
 import { intl } from "@/intl";
+import { GitHubLogoIcon } from "@radix-ui/react-icons";
+import Image from "next/image";
+import { Suspense } from "react";
 
 export default function LoginPage() {
   const dict = intl();
@@ -32,15 +32,11 @@ export default function LoginPage() {
         >
           <LoginButton provider="google">
             <GoogleIcon className="mr-2 h-4 w-4" />
-            <p className="text-base font-medium">
-              Google
-            </p>
+            <p className="text-base font-medium">Google</p>
           </LoginButton>
           <LoginButton provider="github">
             <GitHubLogoIcon className="mr-2 h-4 w-4" />
-            <p className="text-base font-medium">
-              Github
-            </p>
+            <p className="text-base font-medium">Github</p>
           </LoginButton>
         </Suspense>
       </div>
