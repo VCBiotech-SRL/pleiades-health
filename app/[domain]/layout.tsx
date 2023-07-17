@@ -110,7 +110,16 @@ export default async function SiteLayout({
     <div className={fontMapper[data.font]}>
       <SiteNavigator
         brand={{ name: data.name, logo: data.image, slogan: data.description }}
-        links={[]}
+        links={[{
+          title: "Nosotros",
+          href: "/about",
+        }, {
+          title: "Servicios",
+          href: "/services",
+        }, {
+          title: "Productos",
+          href: "/products",
+        }]}
       />
 
       <div className="mt-20">{children}</div>

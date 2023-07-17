@@ -5,6 +5,7 @@ import Image from "next/image";
 import { cn } from "@/lib/utils";
 import { buttonVariants } from "@/components/ui/button";
 import { ModeToggle } from "@/components/theme-toggler";
+import NavLinks from "./nav-links";
 
 export function SiteNavigator({
   brand,
@@ -15,7 +16,10 @@ export function SiteNavigator({
     logo: string | null;
     slogan: string | null;
   };
-  links: string[];
+  links: {
+    title: string;
+    href: string;
+  }[];
 }) {
   return (
     <header className="supports-backdrop-blur:bg-background/60 sticky top-0 z-40 w-full border-b bg-background/95 backdrop-blur">
@@ -44,6 +48,12 @@ export function SiteNavigator({
             </div>
           </div>
         </Link>
+
+        <div className="hidden lg:inline-flex lg:gap-3">
+          <NavLinks
+            links={links}
+          />
+        </div>
         <div className="hidden lg:inline-flex lg:gap-3">
           <Link
             href="/contact"
