@@ -148,8 +148,7 @@ export default function Nav({ children }: { children: ReactNode }) {
           // left align for Editor, right align for other pages
           segments[0] === "post" && segments.length === 2 && !showSidebar
             ? "left-5 top-5"
-            : "right-5 top-7"
-        } sm:hidden`}
+            : "right-5 top-7"} sm:hidden`}
         onClick={() => setShowSidebar(!showSidebar)}
       >
         <Menu width={20} />
@@ -223,7 +222,7 @@ export default function Nav({ children }: { children: ReactNode }) {
                 </div>
               </a>
             ))}
-            <ModeToggle />
+            <ModeToggle classNames="hover:bg-background" />
           </div>
         </div>
       </div>

@@ -1,5 +1,6 @@
 import CTA from "@/components/cta";
 import ReportAbuse from "@/components/report-abuse";
+import { SiteNavigator } from "@/components/site-navigator";
 import { env } from "@/env.mjs";
 import { getSiteData } from "@/lib/fetchers";
 import prisma from "@/lib/prisma";
@@ -107,32 +108,17 @@ export default async function SiteLayout({
 
   return (
     <div className={fontMapper[data.font]}>
-      <div className="ease left-0 right-0 top-0 z-30 flex h-16 bg-white transition-all duration-150 dark:bg-black dark:text-white">
-        <div className="mx-auto flex h-full max-w-screen-xl items-center justify-center space-x-5 px-10 sm:px-20">
-          <Link href="/" className="flex items-center justify-center">
-            <div className="inline-block h-8 w-8 overflow-hidden rounded-full align-middle">
-              <Image
-                alt={data.name || ""}
-                height={40}
-                src={data.logo || ""}
-                width={40}
-              />
-            </div>
-            <span className="ml-3 inline-block truncate font-title font-medium">
-              {data.name}
-            </span>
-          </Link>
-        </div>
-      </div>
+      <SiteNavigator
+        brand={{ name: data.name, logo: data.image, slogan: data.description }}
+        links={[]}
+      />
 
       <div className="mt-20">{children}</div>
 
       {params.domain == `demo.${env.NEXT_PUBLIC_ROOT_DOMAIN}` ||
-      params.domain == `platformize.co` ? (
-        <CTA />
-      ) : (
-        <ReportAbuse />
-      )}
+          params.domain == `platformize.co`
+        ? <CTA />
+        : <ReportAbuse />}
     </div>
   );
 }
