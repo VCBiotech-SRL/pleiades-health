@@ -18,11 +18,7 @@ export function ModeToggle({ classNames }: { classNames?: string }) {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Button
-          variant="muted"
-          size="icon"
-          className={cn("px-1", classNames)}
-        >
+        <Button variant="muted" size="icon" className={cn("px-1", classNames)}>
           <Sun className="h-[1.2rem] w-[1.2rem] rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0 stroke-[1px]" />
           <Moon className="absolute h-[1.2rem] w-[1.2rem] rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100 stroke-[1px]" />
           <span className="sr-only">Toggle theme</span>

@@ -83,7 +83,7 @@ export default function Form({
             name={inputAttrs.name}
           />
         ) : inputAttrs.name === "font" ? (
-          <div className="flex max-w-sm items-center overflow-hidden rounded-lg border border-stone-600">
+          <div className="flex max-w-sm items-center overflow-hidden rounded border border-stone-600">
             <Select {...inputAttrs}>
               <SelectTrigger>
                 <SelectValue placeholder="Font styling" />
@@ -100,7 +100,7 @@ export default function Form({
             <Input {...inputAttrs} required />
             <div
               className={cn(
-                "flex items-center rounded-r-md border border-l-0 bg-stone-200 text-stone-800 dark:bg-stone-800 dark:text-stone-200 px-3 text-sm shadow-sm",
+                "flex items-center rounded-r border border-l-0 bg-stone-200 text-stone-800 dark:bg-stone-800 dark:text-stone-200 px-3 text-sm shadow-sm",
               )}
             >
               {process.env.NEXT_PUBLIC_ROOT_DOMAIN}
@@ -125,7 +125,7 @@ export default function Form({
       {inputAttrs.name === "customDomain" && inputAttrs.defaultValue && (
         <DomainConfiguration domain={inputAttrs.defaultValue} />
       )}
-      <div className="flex flex-col items-center justify-center space-y-2 rounded-b-lg border-t border-stone-200 bg-stone-50 p-3 dark:border-stone-700 dark:bg-stone-800 sm:flex-row sm:justify-between sm:space-y-0 sm:px-10">
+      <div className="flex flex-col items-center justify-center space-y-2 rounded-b border-t border-stone-200 bg-stone-50 p-3 dark:border-stone-700 dark:bg-stone-800 sm:flex-row sm:justify-between sm:space-y-0 sm:px-10">
         <p className="text-sm text-stone-500 dark:text-stone-400">{helpText}</p>
         <FormButton />
       </div>
@@ -133,7 +133,7 @@ export default function Form({
   );
 }
 
-function FormButton() {
+export function FormButton() {
   const { pending } = useFormStatus();
   return (
     <Button

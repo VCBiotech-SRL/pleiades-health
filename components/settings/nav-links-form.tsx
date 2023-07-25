@@ -1,29 +1,7 @@
 "use client";
 
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useFieldArray, useForm } from "react-hook-form";
-
-import { Button, buttonVariants } from "@/components/ui/button";
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormMessage,
-} from "@/components/ui/form";
-import { toast } from "sonner";
-import { experimental_useFormStatus as useFormStatus } from "react-dom";
-import { z } from "zod";
-
-import { type PageUpdate, pageUpdate } from "@/lib/validators/pages";
-import { cn } from "@/lib/utils";
 import LoadingDots from "@/components/icons/loading-dots";
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from "@/components/ui/popover";
-import { CheckIcon, PlusIcon, TrashIcon } from "@radix-ui/react-icons";
+import { Button, buttonVariants } from "@/components/ui/button";
 import {
   Command,
   CommandEmpty,
@@ -31,7 +9,27 @@ import {
   CommandInput,
   CommandItem,
 } from "@/components/ui/command";
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormMessage,
+} from "@/components/ui/form";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
 import { updateSiteLinks } from "@/lib/actions/page";
+import { cn } from "@/lib/utils";
+import { type PageUpdate, pageUpdate } from "@/lib/validators/pages";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { CheckIcon, PlusIcon, TrashIcon } from "@radix-ui/react-icons";
+import { experimental_useFormStatus as useFormStatus } from "react-dom";
+import { useFieldArray, useForm } from "react-hook-form";
+import { toast } from "sonner";
+import { z } from "zod";
 
 export function FormButton() {
   const { pending } = useFormStatus();
@@ -39,8 +37,7 @@ export function FormButton() {
     <Button
       className={cn(
         "w-24",
-        pending ??
-          "cursor-not-allowed border bg-muted text-muted-foreground",
+        pending ?? "cursor-not-allowed border bg-muted text-muted-foreground",
       )}
       disabled={pending}
     >
@@ -55,7 +52,13 @@ const arrayOfPages = z.object({
 
 type ArrayOfPages = z.infer<typeof arrayOfPages>;
 
-export function NavLinksForm({ title, description, helpText, pages, siteId }: {
+export function NavLinksForm({
+  title,
+  description,
+  helpText,
+  pages,
+  siteId,
+}: {
   title: string;
   description: string;
   helpText: string;
@@ -70,12 +73,10 @@ export function NavLinksForm({ title, description, helpText, pages, siteId }: {
     mode: "onChange",
   });
 
-  const { fields, append, remove } = useFieldArray(
-    {
-      control: form.control,
-      name: "pages",
-    },
-  );
+  const { fields, append, remove } = useFieldArray({
+    control: form.control,
+    name: "pages",
+  });
 
   function onSubmit(data: ArrayOfPages) {
     const { pages: updatedPages } = data;
@@ -92,13 +93,15 @@ export function NavLinksForm({ title, description, helpText, pages, siteId }: {
         }),
       ],
       siteId,
-    }).then((res) => {
-      console.log(res);
-      toast.success("Tu página fue actualizada exitosamente");
-    }).catch((error) => {
-      console.error(error);
-      toast.error(`No pudimos actualizar tu página. Contacta soporte.`);
-    });
+    })
+      .then((res) => {
+        console.log(res);
+        toast.success("Tu página fue actualizada exitosamente");
+      })
+      .catch((error) => {
+        console.error(error);
+        toast.error(`No pudimos actualizar tu página. Contacta soporte.`);
+      });
   }
 
   const selectedPages = form.watch("pages");
@@ -112,9 +115,7 @@ export function NavLinksForm({ title, description, helpText, pages, siteId }: {
       >
         <div className="flex flex-col space-y-5 p-5 sm:p-10">
           <h2 className="font-cal text-xl dark:text-white">{title}</h2>
-          <p className="text-sm text-muted-foreground">
-            {description}
-          </p>
+          <p className="text-sm text-muted-foreground">{description}</p>
 
           <div className="flex flex-row items-center gap-2 border p-2 max-w-fit rounded">
             {fields.map((field, index) => (
@@ -136,13 +137,14 @@ export function NavLinksForm({ title, description, helpText, pages, siteId }: {
                                 !field.value && "text-muted-foreground",
                               )}
                             >
-                              {field.value
-                                ? pages.find(
-                                  (page) => page.id === field.value,
-                                )?.title
-                                : errors
-                                ? <FormMessage />
-                                : "Elige una página"}
+                              {field.value ? (
+                                pages.find((page) => page.id === field.value)
+                                  ?.title
+                              ) : errors ? (
+                                <FormMessage />
+                              ) : (
+                                "Elige una página"
+                              )}
                             </Button>
                           </FormControl>
                         </PopoverTrigger>
@@ -157,8 +159,8 @@ export function NavLinksForm({ title, description, helpText, pages, siteId }: {
                             </CommandEmpty>
                             <CommandGroup>
                               {pages.map((page) => {
-                                const isUsed = selectedPages.some((p) =>
-                                  p.id === page.id
+                                const isUsed = selectedPages.some(
+                                  (p) => p.id === page.id,
                                 );
                                 return (
                                   <CommandItem
@@ -215,7 +217,8 @@ export function NavLinksForm({ title, description, helpText, pages, siteId }: {
                     title: null,
                     description: null,
                     order: selectedPages.length,
-                  })}
+                  })
+                }
               >
                 <PlusIcon className="h-4 w-4 text-muted-foreground" />
               </div>
@@ -232,9 +235,11 @@ export function NavLinksForm({ title, description, helpText, pages, siteId }: {
             )}
             disabled={form.formState.isSubmitting}
           >
-            {form.formState.isSubmitting
-              ? <LoadingDots color="#808080" />
-              : <p>Guardar</p>}
+            {form.formState.isSubmitting ? (
+              <LoadingDots color="#808080" />
+            ) : (
+              <p>Guardar</p>
+            )}
           </Button>
         </div>
       </form>

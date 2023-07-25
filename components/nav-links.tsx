@@ -1,14 +1,16 @@
 "use client";
 
-import React from "react";
-import { usePathname } from "next/navigation";
-import Link from "next/link";
 import { buttonVariants } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+import React from "react";
 
-export default function NavLinks(
-  { links }: { links: { title: string; href: string }[] },
-) {
+export default function NavLinks({
+  links,
+}: {
+  links: { title: string; href: string }[];
+}) {
   // Get pathname
   const pathname = usePathname();
   return (

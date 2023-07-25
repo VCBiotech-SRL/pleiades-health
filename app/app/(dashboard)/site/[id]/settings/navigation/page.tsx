@@ -27,7 +27,9 @@ export default async function SiteSettingsAppearance({
     <div className="flex flex-col space-y-6">
       <NavLinksForm
         title={"Enlaces de tu página"}
-        description={"Modifica los enlaces que aparecen en el navegador de tu página"}
+        description={
+          "Modifica los enlaces que aparecen en el navegador de tu página"
+        }
         helpText={"Estos enlaces deben ir a páginas de tengas registradas"}
         pages={pages}
         siteId={params.id}

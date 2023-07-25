@@ -148,7 +148,8 @@ export default function Nav({ children }: { children: ReactNode }) {
           // left align for Editor, right align for other pages
           segments[0] === "post" && segments.length === 2 && !showSidebar
             ? "left-5 top-5"
-            : "right-5 top-7"} sm:hidden`}
+            : "right-5 top-7"
+        } sm:hidden`}
         onClick={() => setShowSidebar(!showSidebar)}
       >
         <Menu width={20} />
@@ -165,7 +166,7 @@ export default function Nav({ children }: { children: ReactNode }) {
         <div className="grid gap-2">
           <div className="flex items-center space-x-2 rounded-lg py-1.5">
             <Link
-              href={`https://${env.NEXT_PUBLIC_ROOT_DOMAIN}`}
+              href={`https://${env.NEXT_PUBLIC_ROOT_DOMAIN ?? "vcbio.tech"}`}
               target="_blank"
               rel="noopener noreferrer"
               className={cn(

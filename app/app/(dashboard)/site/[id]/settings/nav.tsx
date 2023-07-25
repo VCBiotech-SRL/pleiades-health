@@ -15,14 +15,19 @@ export default function SiteSettingsNav() {
       segment: null,
     },
     {
-      name: "Domains",
+      name: "Dominios",
       href: `/site/${id}/settings/domains`,
       segment: "domains",
     },
     {
-      name: "Appearance",
+      name: "Apariencia",
       href: `/site/${id}/settings/appearance`,
       segment: "appearance",
+    },
+    {
+      name: "Navegación",
+      href: `/site/${id}/settings/navigation`,
+      segment: "navigation",
     },
   ];
 

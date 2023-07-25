@@ -6,8 +6,6 @@ import { getSiteData } from "@/lib/fetchers";
 import prisma from "@/lib/prisma";
 import { fontMapper } from "@/styles/fonts";
 import { Metadata } from "next";
-import Image from "next/image";
-import Link from "next/link";
 import { notFound, redirect } from "next/navigation";
 import { ReactNode } from "react";
 
@@ -110,24 +108,20 @@ export default async function SiteLayout({
     <div className={fontMapper[data.font]}>
       <SiteNavigator
         brand={{ name: data.name, logo: data.image, slogan: data.description }}
-        links={[{
-          title: "Nosotros",
-          href: "/about",
-        }, {
-          title: "Servicios",
-          href: "/services",
-        }, {
-          title: "Productos",
-          href: "/products",
-        }]}
+        links={data.pages.map((p) => ({
+          title: p.title ?? "NA",
+          href: p.segment ?? "NA",
+        }))}
       />
 
       <div className="mt-20">{children}</div>
 
-      {params.domain == `demo.${env.NEXT_PUBLIC_ROOT_DOMAIN}` ||
-          params.domain == `platformize.co`
-        ? <CTA />
-        : <ReportAbuse />}
+      {params.domain == `app.${env.NEXT_PUBLIC_ROOT_DOMAIN}` ||
+      params.domain == `vcbio.tech` ? (
+        <CTA />
+      ) : (
+        <ReportAbuse />
+      )}
     </div>
   );
 }

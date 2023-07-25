@@ -1,11 +1,10 @@
-import React from "react";
-import Link from "next/link";
-import Image from "next/image";
-
-import { cn } from "@/lib/utils";
-import { buttonVariants } from "@/components/ui/button";
-import { ModeToggle } from "@/components/theme-toggler";
 import NavLinks from "./nav-links";
+import { ModeToggle } from "@/components/theme-toggler";
+import { buttonVariants } from "@/components/ui/button";
+import { cn } from "@/lib/utils";
+import Image from "next/image";
+import Link from "next/link";
+import React from "react";
 
 export function SiteNavigator({
   brand,
@@ -50,17 +49,12 @@ export function SiteNavigator({
         </Link>
 
         <div className="hidden lg:inline-flex lg:gap-3">
-          <NavLinks
-            links={links}
-          />
+          <NavLinks links={links} />
         </div>
         <div className="hidden lg:inline-flex lg:gap-3">
           <Link
             href="/contact"
-            className={cn(
-              buttonVariants({ variant: "muted" }),
-              "px-4",
-            )}
+            className={cn(buttonVariants({ variant: "muted" }), "px-4")}
           >
             Contacto
           </Link>

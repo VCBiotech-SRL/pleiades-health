@@ -206,9 +206,11 @@ export default function Editor({ post }: { post: PostWithSite }) {
           )}
           disabled={isPendingPublishing}
         >
-          {isPendingPublishing
-            ? <LoadingDots />
-            : <p>{data.published ? "Unpublish" : "Publish"}</p>}
+          {isPendingPublishing ? (
+            <LoadingDots />
+          ) : (
+            <p>{data.published ? "Unpublish" : "Publish"}</p>
+          )}
         </button>
       </div>
       <div className="mb-5 flex flex-col space-y-3 border-b border-stone-200 pb-5 dark:border-stone-700">

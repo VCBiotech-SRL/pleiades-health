@@ -8,7 +8,7 @@ datasource db {
 }
 
 generator client {
-  provider        = "prisma-client-js"
+  provider = "prisma-client-js"
 }
 
 model User {
@@ -106,19 +106,36 @@ model Site {
   user          User?     @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
   userId        String?
   posts         Post[]
-  Message       Message[]
+  messages      Message[]
+  pages         Page[]
 
   @@index([userId])
 }
 
+model Page {
+  id           String  @id @default(cuid())
+  segment      String
+  title        String?
+  description  String? @db.Text
+  order Int?
+
+  site   Site?   @relation(fields: [siteId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  siteId String?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([siteId])
+}
+
 model Message {
-  id      String  @id @default(cuid())
+  id      String        @id @default(cuid())
   subject String
   from    String
-  content String? @db.Text
+  content String?       @db.Text
   flag    String?
-  starred Boolean @default(false)
-  status MessageStatus @default(NEW)
+  starred Boolean       @default(false)
+  status  MessageStatus @default(NEW)
 
   site   Site?   @relation(fields: [siteId], references: [id], onDelete: Cascade, onUpdate: Cascade)
   siteId String?

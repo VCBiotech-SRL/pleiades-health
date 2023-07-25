@@ -1,10 +1,10 @@
 "use server";
 
-import { getSession } from "@/lib/auth";
 import { env } from "@/env.mjs";
+import { getSession } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
-import { revalidateTag } from "next/cache";
 import { PageCreate, PageUpdate } from "@/lib/validators/pages";
+import { revalidateTag } from "next/cache";
 
 export async function createPage(payload: PageCreate) {
   const session = await getSession();
@@ -67,9 +67,13 @@ export async function updatePage(data: PageUpdate) {
   }
 }
 
-export async function updateSiteLinks(
-  { pages, siteId }: { pages: PageUpdate[]; siteId: string },
-) {
+export async function updateSiteLinks({
+  pages,
+  siteId,
+}: {
+  pages: PageUpdate[];
+  siteId: string;
+}) {
   const session = await getSession();
 
   if (!session?.user.id) {
@@ -93,9 +97,11 @@ export async function updateSiteLinks(
   }
 
   try {
-    const result = await prisma.$transaction([...pages.map((page) => (
-      prisma.page.update({ where: { id: page.id }, data: { ...page } })
-    ))]);
+    const result = await prisma.$transaction([
+      ...pages.map((page) =>
+        prisma.page.update({ where: { id: page.id }, data: { ...page } }),
+      ),
+    ]);
 
     const domain = `${site.subdomain}.${env.NEXT_PUBLIC_ROOT_DOMAIN}`;
 

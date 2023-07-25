@@ -1,3 +1,4 @@
+import { env } from "./env.mjs";
 import { getToken } from "next-auth/jwt";
 import { NextRequest, NextResponse } from "next/server";
 
@@ -20,7 +21,7 @@ export default async function middleware(req: NextRequest) {
   // Get hostname of request (e.g. demo.vercel.pub, demo.localhost:3000)
   const hostname = req.headers
     .get("host")!
-    .replace(".localhost:3000", `.${process.env.NEXT_PUBLIC_ROOT_DOMAIN}`);
+    .replace(".localhost:3000", `.${env.NEXT_PUBLIC_ROOT_DOMAIN}`);
 
   // Get the pathname of the request (e.g. /, /about, /blog/first-post)
   const path = url.pathname;

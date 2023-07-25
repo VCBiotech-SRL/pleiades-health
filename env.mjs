@@ -46,10 +46,12 @@ export const env = createEnv({
     NEXT_PUBLIC_STRIPE_PRO_MONTHLY_PRICE_ID: z.string().min(1),
   },
   client: {
+    NEXT_PUBLIC_ROOT_DOMAIN: z.string().min(1),
     // NEXT_PUBLIC_PUBLISHABLE_KEY: z.string().min(1),
   },
   // For Next.js >= 13.4.4, you only need to destructure client variables:
   experimental__runtimeEnv: {
+    NEXT_PUBLIC_ROOT_DOMAIN: process.env.NEXT_PUBLIC_ROOT_DOMAIN,
     NEXT_PUBLIC_STRIPE_STD_PRODUCT_ID:
       process.env.NEXT_PUBLIC_STRIPE_STD_PRODUCT_ID,
 
