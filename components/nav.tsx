@@ -5,18 +5,18 @@ import { Button, buttonVariants } from "./ui/button";
 import { env } from "@/env.mjs";
 import { getSiteFromPostId } from "@/lib/actions";
 import { cn } from "@/lib/utils";
-import { ChatBubbleIcon, FileTextIcon } from "@radix-ui/react-icons";
 import {
-  ArrowLeft,
-  BarChart3,
-  Edit3,
-  Globe,
-  LayoutDashboard,
-  Mails,
-  Menu,
-  Newspaper,
-  Settings,
-} from "lucide-react";
+  ArrowLeftIcon,
+  BarChartIcon,
+  ChatBubbleIcon,
+  DashboardIcon,
+  EnvelopeOpenIcon,
+  FileTextIcon,
+  GearIcon,
+  GlobeIcon,
+  HamburgerMenuIcon,
+  Pencil1Icon,
+} from "@radix-ui/react-icons";
 import Image from "next/image";
 import Link from "next/link";
 import {
@@ -59,32 +59,32 @@ export default function Nav({ children }: { children: ReactNode }) {
         {
           name: "Back to All Sites",
           href: "/sites",
-          icon: <ArrowLeft width={18} />,
+          icon: <ArrowLeftIcon width={18} />,
         },
         {
           name: "Posts",
           href: `/site/${id}`,
           isActive: segments.length === 2,
-          icon: <Newspaper width={18} />,
+          icon: <FileTextIcon width={18} />,
         },
         {
           name: "Analytics",
           href: `/site/${id}/analytics`,
           isActive: segments.includes("analytics"),
-          icon: <BarChart3 width={18} />,
+          icon: <BarChartIcon width={18} className="stroke-[1.5px]" />,
         },
         {
           name: "Messages",
           href: `/site/${id}/messages`,
           isActive: segments.includes("messages"),
-          icon: <Mails width={18} />,
+          icon: <EnvelopeOpenIcon width={18} />,
         },
 
         {
           name: "Settings",
           href: `/site/${id}/settings`,
           isActive: segments.includes("settings"),
-          icon: <Settings width={18} />,
+          icon: <GearIcon width={18} />,
         },
       ];
     } else if (segments[0] === "post" && id) {
@@ -92,19 +92,19 @@ export default function Nav({ children }: { children: ReactNode }) {
         {
           name: "Back to All Posts",
           href: siteId ? `/site/${siteId}` : "/sites",
-          icon: <ArrowLeft width={18} />,
+          icon: <ArrowLeftIcon width={18} />,
         },
         {
           name: "Editor",
           href: `/post/${id}`,
           isActive: segments.length === 2,
-          icon: <Edit3 width={18} />,
+          icon: <Pencil1Icon width={18} />,
         },
         {
           name: "Settings",
           href: `/post/${id}/settings`,
           isActive: segments.includes("settings"),
-          icon: <Settings width={18} />,
+          icon: <GearIcon width={18} />,
         },
       ];
     }
@@ -113,19 +113,19 @@ export default function Nav({ children }: { children: ReactNode }) {
         name: "Overview",
         href: "/",
         isActive: segments.length === 0,
-        icon: <LayoutDashboard width={18} />,
+        icon: <DashboardIcon width={18} />,
       },
       {
         name: "Sites",
         href: "/sites",
         isActive: segments[0] === "sites",
-        icon: <Globe width={18} />,
+        icon: <GlobeIcon width={18} />,
       },
       {
         name: "Settings",
         href: "/settings",
         isActive: segments[0] === "settings",
-        icon: <Settings width={18} />,
+        icon: <GearIcon width={18} />,
       },
     ];
   }, [segments, id, siteId]);
@@ -148,11 +148,10 @@ export default function Nav({ children }: { children: ReactNode }) {
           // left align for Editor, right align for other pages
           segments[0] === "post" && segments.length === 2 && !showSidebar
             ? "left-5 top-5"
-            : "right-5 top-7"
-        } sm:hidden`}
+            : "right-5 top-7"} sm:hidden`}
         onClick={() => setShowSidebar(!showSidebar)}
       >
-        <Menu width={20} />
+        <HamburgerMenuIcon width={20} />
       </Button>
       <div
         className={cn(
