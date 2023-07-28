@@ -22,7 +22,7 @@ export function SiteNavigator({
 }) {
   return (
     <header className="supports-backdrop-blur:bg-background/60 sticky top-0 z-40 w-full border-b bg-background/95 backdrop-blur">
-      <nav className="container mx-auto flex h-20 w-full flex-row items-center justify-between p-3 sm:px-6">
+      <nav className="container grid grid-cols-3 h-20 w-full items-center p-3 sm:px-6">
         <Link href="/" className="">
           <div className="relative flex w-48 flex-row items-center space-x-2 align-baseline md:mx-0">
             <Image
@@ -48,13 +48,13 @@ export function SiteNavigator({
           </div>
         </Link>
 
-        <div className="hidden lg:inline-flex lg:gap-3">
+        <div className="hidden lg:inline-flex lg:gap-3 mx-auto">
           <NavLinks links={links} />
         </div>
-        <div className="hidden lg:inline-flex lg:gap-3">
+        <div className="hidden lg:inline-flex lg:gap-3 justify-end">
           <Link
             href="/contact"
-            className={cn(buttonVariants({ variant: "muted" }), "px-4")}
+            className={cn(buttonVariants({ variant: "outline" }), "px-4")}
           >
             Contacto
           </Link>

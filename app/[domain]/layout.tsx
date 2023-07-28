@@ -114,14 +114,12 @@ export default async function SiteLayout({
         }))}
       />
 
-      <div className="mt-20">{children}</div>
+      <div className="">{children}</div>
 
       {params.domain == `app.${env.NEXT_PUBLIC_ROOT_DOMAIN}` ||
-      params.domain == `vcbio.tech` ? (
-        <CTA />
-      ) : (
-        <ReportAbuse />
-      )}
+          params.domain == `vcbio.tech`
+        ? <CTA />
+        : <ReportAbuse />}
     </div>
   );
 }

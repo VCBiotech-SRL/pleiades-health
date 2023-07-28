@@ -16,6 +16,7 @@ module.exports = {
       "lh3.googleusercontent.com",
       "flag.vercel.app",
       "illustrations.popsy.co",
+      "images.unsplash.com",
     ],
   },
   reactStrictMode: false,
